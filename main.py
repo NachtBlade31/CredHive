@@ -41,6 +41,7 @@ Base.metadata.create_all(bind=engine)
 
 # Pydantic model for credit information
 class CreditInfo(BaseModel):
+    id: int
     company_name: str
     address: str
     registration_date: str
@@ -102,18 +103,13 @@ async def get_all_credits(db: Session = Depends(get_db)):
     credits = db.query(CreditInfoModel).all()
     return credits
 
-# API endpoint to retrieve credit information for a specific company by name
-@app.get("/credits/{company_name}", response_model=CreditInfo)
-async def get_credit_by_name(company_name: str, db: Session = Depends(get_db)):
-    credit_info = (
-        db.query(CreditInfoModel)
-        .filter(CreditInfoModel.company_name == company_name)
-        .first()
-    )
+# API endpoint to retrieve credit information for a specific user by ID
+@app.get("/credits/{id}", response_model=CreditInfo)
+async def get_credit_by_id(id: int, db: Session = Depends(get_db)):
+    credit_info = db.query(CreditInfoModel).filter(CreditInfoModel.id == id).first()
     if credit_info is None:
         raise HTTPException(status_code=404, detail="Credit information not found")
-    return credit_info
-
+    return CreditInfo(**credit_info.__dict__)
 
 # API endpoint to add new credit information
 @app.post("/credits", response_model=CreditInfo)
@@ -129,15 +125,23 @@ async def add_credit_info(
         .filter(CreditInfoModel.company_name == credit_info.company_name)
         .first()
     )
-    if existing_entry:
+    existing_entry_by_id=(
+        db.query(CreditInfoModel)
+        .filter(CreditInfoModel.id == credit_info.id)
+        .first()
+    )
+    if existing_entry :
         raise HTTPException(status_code=400, detail="Entry with this company name already exists")
+
+    if existing_entry_by_id:
+        raise HTTPException(status_code=400, detail="Entry with this ID already exists")
 
     # Save the credit information to the database
     db_credit_info = CreditInfoModel(**credit_info.dict())
     db.add(db_credit_info)
     db.commit()
     db.refresh(db_credit_info)
-    return db_credit_info
+    return CreditInfo(**db_credit_info.__dict__)
 
 # API endpoint to update credit information for a specific user
 @app.put("/credits/{id}", response_model=CreditInfo)
@@ -159,7 +163,7 @@ async def update_credit_info(
 
     db.commit()
     db.refresh(db_credit_info)
-    return db_credit_info
+    return CreditInfo(**db_credit_info.__dict__)
 
 # API endpoint to delete credit information for a specific user
 @app.delete("/credits/{id}")
