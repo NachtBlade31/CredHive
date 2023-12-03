@@ -23,7 +23,7 @@ class CreditInfoModel(Base):
     id = Column(Integer, primary_key=True, index=True)
     company_name = Column(String, index=True)
     address = Column(String)
-    registration_date = Column(DateTime)
+    registration_date = Column(String)
     number_of_employees = Column(Integer)
     raised_capital = Column(Float)
     turnover = Column(Float)
