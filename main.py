@@ -102,13 +102,18 @@ async def get_all_credits(db: Session = Depends(get_db)):
     credits = db.query(CreditInfoModel).all()
     return credits
 
-# API endpoint to retrieve credit information for a specific user by ID
-@app.get("/credits/{id}", response_model=CreditInfo)
-async def get_credit_by_id(id: int, db: Session = Depends(get_db)):
-    credit_info = db.query(CreditInfoModel).filter(CreditInfoModel.id == id).first()
+# API endpoint to retrieve credit information for a specific company by name
+@app.get("/credits/{company_name}", response_model=CreditInfo)
+async def get_credit_by_name(company_name: str, db: Session = Depends(get_db)):
+    credit_info = (
+        db.query(CreditInfoModel)
+        .filter(CreditInfoModel.company_name == company_name)
+        .first()
+    )
     if credit_info is None:
         raise HTTPException(status_code=404, detail="Credit information not found")
     return credit_info
+
 
 # API endpoint to add new credit information
 @app.post("/credits", response_model=CreditInfo)
@@ -118,6 +123,15 @@ async def add_credit_info(
     rate_limiter: RateLimiter = Depends(),
     db: Session = Depends(get_db),
 ):
+    # Check if the entry already exists
+    existing_entry = (
+        db.query(CreditInfoModel)
+        .filter(CreditInfoModel.company_name == credit_info.company_name)
+        .first()
+    )
+    if existing_entry:
+        raise HTTPException(status_code=400, detail="Entry with this company name already exists")
+
     # Save the credit information to the database
     db_credit_info = CreditInfoModel(**credit_info.dict())
     db.add(db_credit_info)
@@ -134,6 +148,7 @@ async def update_credit_info(
     rate_limiter: RateLimiter = Depends(),
     db: Session = Depends(get_db),
 ):
+    # Check if the entry exists
     db_credit_info = db.query(CreditInfoModel).filter(CreditInfoModel.id == id).first()
     if db_credit_info is None:
         raise HTTPException(status_code=404, detail="Credit information not found")
@@ -154,6 +169,7 @@ async def delete_credit_info(
     rate_limiter: RateLimiter = Depends(),
     db: Session = Depends(get_db),
 ):
+    # Check if the entry exists
     db_credit_info = db.query(CreditInfoModel).filter(CreditInfoModel.id == id).first()
     if db_credit_info is None:
         raise HTTPException(status_code=404, detail="Credit information not found")
