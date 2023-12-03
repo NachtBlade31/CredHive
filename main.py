@@ -32,7 +32,6 @@ class CreditInfoModel(Base):
     loan_amount = Column(Float)
     loan_interest = Column(Float)
     account_status = Column(Boolean)
-    # ... add other fields ...
 
 # Create the database tables
 Base.metadata.create_all(bind=engine)
@@ -53,7 +52,6 @@ class CreditInfo(BaseModel):
     loan_amount: float
     loan_interest: float
     account_status: bool
-    # ... add other fields ...
 
 # Pydantic model for credit information update
 class CreditInfoUpdate(BaseModel):
@@ -70,7 +68,6 @@ class CreditInfoUpdate(BaseModel):
     loan_amount: float = None
     loan_interest: float = None
     account_status: bool = None
-    # ... add other fields ...
 
 # OAuth2 token for authentication
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
