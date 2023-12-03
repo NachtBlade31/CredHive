@@ -1,5 +1,3 @@
-# main.py
-
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi_limiter.depends import RateLimiter
 from fastapi.security import OAuth2PasswordBearer
