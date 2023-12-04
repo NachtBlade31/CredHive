@@ -1,11 +1,12 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi_limiter.depends import RateLimiter
 from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy import create_engine, Column, Integer, String, MetaData, Float, DateTime, Boolean
+from sqlalchemy import create_engine, Column, Integer, String, MetaData, Float, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from pydantic import BaseModel
 from typing import List
+
 
 DATABASE_URL = "sqlite:///./credhive.db"
 

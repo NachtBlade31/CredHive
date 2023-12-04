@@ -12,8 +12,8 @@ This FastAPI application provides a RESTful API for managing credit information.
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/your-repo.git
-    cd your-repo
+    git clone https://github.com/NachtBlade31/CredHive.git
+    cd CredHive
     ```
 
 2. Create a virtual environment:
@@ -42,22 +42,6 @@ This FastAPI application provides a RESTful API for managing credit information.
     pip install -r requirements.txt
     ```
 
-## Database Setup
-
-1. Open a Python shell and run the following commands to create the SQLite database tables:
-
-    ```python
-    from sqlalchemy import create_engine, MetaData
-    from your_app import Base, DATABASE_URL
-
-    engine = create_engine(DATABASE_URL)
-    metadata = MetaData()
-
-    Base.metadata.create_all(bind=engine)
-    ```
-
-Replace `your_app` with the actual name of your FastAPI application file.
-
 ## Running the Application
 
 1. Run the FastAPI application using Uvicorn:
@@ -66,8 +50,6 @@ Replace `your_app` with the actual name of your FastAPI application file.
     uvicorn main:app --reload
     ```
 
-
-2. Open your web browser and navigate to `http://127.0.0.1:8000/docs` to access the Swagger UI for testing the API endpoints.
 
 ## API Endpoints
 
@@ -101,25 +83,6 @@ This FastAPI project provides a RESTful API for managing credit information. The
 - FastAPI Limiter for rate limiting
 - Token-based authentication for securing endpoints
 
-## Installation
-
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/yourusername/fastapi-credit-api.git
-    cd fastapi-credit-api
-    ```
-
-2. Install dependencies:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-## Database Setup
-
-This project uses SQLite as the database. The database file will be created automatically when you run the application.
-
 ## Configuration
 
 Edit the `main.py` file to configure the database URL and other settings if needed.
@@ -149,6 +112,7 @@ The credit information includes the following fields:
 11. Loan Amount
 12. Loan Interest (%)
 13. Account Status
+14. ID
 
 ## Data Validation
 
