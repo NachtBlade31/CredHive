@@ -95,6 +95,63 @@ Edit the `main.py` file to configure the database URL and other settings if need
 - `PUT /credits/{id}`: Update credit information for a specific user.
 - `DELETE /credits/{id}`: Delete credit information for a specific user.
 
+# FastAPI Endpoint Testing Tutorial
+
+## Using Postman
+
+1. **Download and Install Postman:**
+   - Download and install Postman from [here](https://www.postman.com/downloads/).
+
+
+
+2. **Set Up Environment Variables:**
+   - Create a new environment in Postman.
+   - Set the variable `base_url` to the address where your FastAPI server is running (e.g., `http://127.0.0.1:8000`).
+
+3. **Run the Endpoints:**
+   - Open the FastAPI collection in Postman.
+   - Select the environment you created.
+   - Run each request in the collection to test different endpoints.
+   - Include the `Authorization` header with the value `Bearer fake-token` for authenticated requests.
+
+## Using HTTPie
+
+1. **Install HTTPie:**
+   - If you haven't installed HTTPie, you can do so with the following commands:
+     ```bash
+     # On Linux
+     sudo apt-get install httpie
+
+     # On macOS
+     brew install httpie
+
+     # On Windows (requires Python)
+     pip install httpie
+     ```
+
+2. **Run Endpoints with HTTPie:**
+   - Open a terminal window.
+   - Use HTTPie to send requests to your FastAPI server. For example:
+     ```bash
+     # Get all credits
+     http GET http://127.0.0.1:8000/credits "Authorization:Bearer fake-token"
+
+     # Get credit by ID
+     http GET http://127.0.0.1:8000/credits/1 "Authorization:Bearer fake-token"
+
+     # Add new credit
+     http POST http://127.0.0.1:8000/credits "Authorization:Bearer fake-token" company_name="New Company" address="New Address" registration_date="2022-01-01" number_of_employees:=100 raised_capital:=1000000.0 turnover:=500000.0 net_profit:=200000.0 contact_number="1234567890" contact_email="new@example.com" company_website="http://www.newcompany.com" loan_amount:=500000.0 loan_interest:=5.0 account_status:=true
+
+     # Update credit by ID
+     http PUT http://127.0.0.1:8000/credits/1 "Authorization:Bearer fake-token" company_name="Updated Company" number_of_employees:=150 raised_capital:=1200000.0
+
+     # Delete credit by ID
+     http DELETE http://127.0.0.1:8000/credits/1 "Authorization:Bearer fake-token"
+     ```
+   - Adjust the URL and payload data based on your needs.
+
+These are basic examples, and you may need to adjust the requests based on the specific data and endpoints you want to test. Always ensure that the server is running and reachable before attempting to send requests.
+
 ## Data Model
 
 The credit information includes the following fields:
