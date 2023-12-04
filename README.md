@@ -97,23 +97,6 @@ Edit the `main.py` file to configure the database URL and other settings if need
 
 # FastAPI Endpoint Testing Tutorial
 
-## Using Postman
-
-1. **Download and Install Postman:**
-   - Download and install Postman from [here](https://www.postman.com/downloads/).
-
-
-
-2. **Set Up Environment Variables:**
-   - Create a new environment in Postman.
-   - Set the variable `base_url` to the address where your FastAPI server is running (e.g., `http://127.0.0.1:8000`).
-
-3. **Run the Endpoints:**
-   - Open the FastAPI collection in Postman.
-   - Select the environment you created.
-   - Run each request in the collection to test different endpoints.
-   - Include the `Authorization` header with the value `Bearer fake-token` for authenticated requests.
-
 ## Using HTTPie
 
 1. **Install HTTPie:**
