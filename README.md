@@ -123,7 +123,7 @@ Edit the `main.py` file to configure the database URL and other settings if need
      http GET http://127.0.0.1:8000/credits/1 "Authorization:Bearer fake-token"
 
      # Add new credit
-     http POST http://127.0.0.1:8000/credits "Authorization:Bearer fake-token" id=999 company_name="New Company" address="New Address" registration_date="2022-01-01" number_of_employees:=100 raised_capital:=1000000.0 turnover:=500000.0 net_profit:=200000.0 contact_number="1234567890" contact_email="new@example.com" company_website="http://www.newcompany.com" loan_amount:=500000.0 loan_interest:=5.0 account_status:=true
+     http POST http://127.0.0.1:8000/credits "Authorization:Bearer fake-token" id=999 company_name="New Company" address="New Address" registration_date="2022-01-01" number_of_employees:=100 raised_capital:=1000000.0 turnover:=500000.0 net_profit:=200000.0 contact_number="1234567890" contact_email="new@example.com" company_website="http://www.newcompany.com" loan_amount=500000.0 loan_interest=5.0 account_status=true
 
      # Update credit by ID
      http PUT http://127.0.0.1:8000/credits/1 "Authorization:Bearer fake-token" company_name="Updated Company" number_of_employees:=150 raised_capital:=1200000.0
